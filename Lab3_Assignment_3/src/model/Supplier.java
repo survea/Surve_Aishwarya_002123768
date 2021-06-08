@@ -1,0 +1,64 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+/**
+ *
+ * @author archil
+ */
+public class Supplier {
+
+    private String supplyName;
+    private String supplyPhone;
+    private String supplyEmail;
+
+    public String getSupplyPhone() {
+        return supplyPhone;
+    }
+
+    public void setSupplyPhone(String supplyPhone) {
+        this.supplyPhone = supplyPhone;
+    }
+
+    public String getSupplyEmail() {
+        return supplyEmail;
+    }
+
+    public void setSupplyEmail(String supplyEmail) {
+        this.supplyEmail = supplyEmail;
+    }
+    private ProductCatalog productCatalog;
+
+    public Supplier() {
+        productCatalog = new ProductCatalog();
+    }
+
+    public String getSupplyName() {
+        return supplyName;
+    }
+
+    public void setSupplyName(String supplyName) {
+        this.supplyName = supplyName;
+    }
+
+    public ProductCatalog getProductCatalog() {
+        return productCatalog;
+    }
+
+    public void setProductCatalog(ProductCatalog productCatalog) {
+        this.productCatalog = productCatalog;
+    }
+    
+    public int getProductCatalogLength(){
+        return productCatalog.getLength();
+    }
+    
+    @Override
+    public String toString() {
+        return supplyName; 
+    }
+
+}
