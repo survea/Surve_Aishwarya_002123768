@@ -1,11 +1,15 @@
 package Business;
 
+import Business.Customer.Customer;
 import Business.Customer.CustomerDirectory;
+import Business.DeliveryMan.DeliveryMan;
 import Business.DeliveryMan.DeliveryManDirectory;
 import Business.Employee.Employee;
 import Business.Restaurant.Restaurant;
 import Business.Restaurant.RestaurantDirectory;
 import Business.Role.AdminRole;
+import Business.Role.CustomerRole;
+import Business.Role.DeliverManRole;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
 import business.Organization.SystemAdminOrganization;
@@ -44,7 +48,17 @@ public class ConfigureASystem {
        restaurant.setManager(restuser);
        restaurant.setRestaurantName("Indian Taste");
          
-        
+        //Customer Management
+       Employee custEmp = system.getEmployeeDirectory().createEmployee("cust1");
+       UserAccount custuser = system.getUserAccountDirectory().createUserAccount("c", "c", custEmp, new CustomerRole());
+       Customer customer = system.getCustomerDirectory().createCustomer();
+       customer.setCustomerUser(custuser);
+       
+       //Delivery Man Management
+       Employee delEmp = system.getEmployeeDirectory().createEmployee("del");
+       UserAccount deluser = system.getUserAccountDirectory().createUserAccount("d", "d", delEmp, new DeliverManRole());
+       DeliveryMan deliveryMan = system.getDeliveryManDirectory().createDeliveryMan();
+       deliveryMan.setDeliveryUser(deluser);
         return system;
     }
     

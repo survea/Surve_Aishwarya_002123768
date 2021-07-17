@@ -5,10 +5,12 @@
  */
 package userinterface.SystemAdminWorkArea;
 
+import Business.DeliveryMan.DeliveryMan;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Restaurant.Restaurant;
 import Business.Role.AdminRole;
+import Business.Role.DeliverManRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -19,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author dhairyasheel
  */
-public class RestaurantManagementJPanel extends javax.swing.JPanel {
+public class DeliveryManManagementJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form RestaurantManagementJPanel
@@ -27,8 +29,8 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
     JPanel userProcessContainer;
     EcoSystem ecosystem;
     UserAccount account;
-     Restaurant selectedRestaurant;
-    public RestaurantManagementJPanel(JPanel userProcessContainer,UserAccount account,EcoSystem ecosystem) {
+     DeliveryMan selectedDeliveryMan;
+    public DeliveryManManagementJPanel(JPanel userProcessContainer,UserAccount account,EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
@@ -50,21 +52,19 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         lblUsersList = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblRestaurant = new javax.swing.JTable();
+        tblDeliveryMan = new javax.swing.JTable();
         grpNewUser = new javax.swing.JPanel();
         txtUserName = new javax.swing.JTextField();
         lblUserName = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
-        txtRestName = new javax.swing.JTextField();
+        txtManName = new javax.swing.JTextField();
         lblRestName = new javax.swing.JLabel();
-        txtManaName = new javax.swing.JTextField();
-        lblManName = new javax.swing.JLabel();
         btnCreate = new javax.swing.JButton();
         lblOrganizationList2 = new javax.swing.JLabel();
         btnView = new javax.swing.JButton();
         lblManName1 = new javax.swing.JLabel();
-        txtManaUpdate = new javax.swing.JTextField();
+        txtManUpdate = new javax.swing.JTextField();
         lblUserName1 = new javax.swing.JLabel();
         txtUserUpdate = new javax.swing.JTextField();
         txtPassUpdate = new javax.swing.JTextField();
@@ -76,7 +76,7 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(254, 254, 254));
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        lblTitle.setText("Restaurant Management");
+        lblTitle.setText("Delivery Man Management");
 
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -86,14 +86,14 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
         });
 
         lblUsersList.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblUsersList.setText("Restaurant List:");
+        lblUsersList.setText("Delivery Man List:");
 
-        tblRestaurant.setModel(new javax.swing.table.DefaultTableModel(
+        tblDeliveryMan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Restaurant Name"
+                "Delivery Man Name"
             }
         ) {
             Class[] types = new Class [] {
@@ -104,18 +104,28 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        tblRestaurant.setGridColor(new java.awt.Color(254, 254, 254));
-        jScrollPane1.setViewportView(tblRestaurant);
+        tblDeliveryMan.setGridColor(new java.awt.Color(254, 254, 254));
+        jScrollPane1.setViewportView(tblDeliveryMan);
 
         grpNewUser.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserNameActionPerformed(evt);
+            }
+        });
 
         lblUserName.setText("User Name:");
 
         lblPassword.setText("Password:");
 
-        lblRestName.setText("Restaurant Name:");
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
 
-        lblManName.setText("Manager Name:");
+        lblRestName.setText("Delivery Man Name:");
 
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +135,7 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
         });
 
         lblOrganizationList2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblOrganizationList2.setText("New Restaurant:");
+        lblOrganizationList2.setText("New Delivery Man:");
 
         javax.swing.GroupLayout grpNewUserLayout = new javax.swing.GroupLayout(grpNewUser);
         grpNewUser.setLayout(grpNewUserLayout);
@@ -134,29 +144,22 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
             .addGroup(grpNewUserLayout.createSequentialGroup()
                 .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(grpNewUserLayout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addComponent(btnCreate))
-                    .addGroup(grpNewUserLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblOrganizationList2)
-                            .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(grpNewUserLayout.createSequentialGroup()
+                            .addGroup(grpNewUserLayout.createSequentialGroup()
+                                .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblUserName)
                                     .addComponent(lblRestName)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtRestName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(grpNewUserLayout.createSequentialGroup()
-                                    .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblUserName)
-                                        .addComponent(lblPassword))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(grpNewUserLayout.createSequentialGroup()
-                                    .addComponent(lblManName)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtManaName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(lblPassword))
+                                .addGap(18, 18, 18)
+                                .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtManName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(grpNewUserLayout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(btnCreate)))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
         grpNewUserLayout.setVerticalGroup(
@@ -166,22 +169,18 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRestName)
-                    .addComponent(txtRestName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblManName)
-                    .addComponent(txtManaName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtManName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUserName)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(grpNewUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPassword)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPassword))
+                .addGap(30, 30, 30)
                 .addComponent(btnCreate)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         btnView.setText("View");
@@ -191,7 +190,7 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblManName1.setText("Manager Name:");
+        lblManName1.setText("Delivery Man Name:");
 
         lblUserName1.setText("User Name:");
 
@@ -212,7 +211,7 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
         });
 
         lblCreateUser1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblCreateUser1.setText("Restaurant Manager details:");
+        lblCreateUser1.setText("Delivery Man details:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -237,12 +236,14 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
                                         .addGap(26, 26, 26))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(142, 142, 142)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(114, 114, 114)))
                                 .addComponent(grpNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblManName1)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtManaUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtManUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
                                 .addComponent(lblUserName1)
                                 .addGap(18, 18, 18)
@@ -253,9 +254,7 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
                                 .addComponent(txtPassUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(251, 251, 251)
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -273,21 +272,21 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnView)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnView)
+                            .addComponent(btnDelete))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCreateUser1)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblManName1)
-                    .addComponent(txtManaUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtManUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUserName1)
                     .addComponent(txtUserUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPassword1)
                     .addComponent(txtPassUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnDelete))
+                .addComponent(btnUpdate)
                 .addContainerGap(44, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -301,50 +300,57 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
       
-       selectedRestaurant.getManager().getEmployee().setName(txtManaUpdate.getText());
-       selectedRestaurant.getManager().setUsername(txtUserUpdate.getText());
-       selectedRestaurant.getManager().setPassword(txtPassUpdate.getText());
+       selectedDeliveryMan.getDeliveryUser().getEmployee().setName(txtManUpdate.getText());
+       selectedDeliveryMan.getDeliveryUser().setUsername(txtUserUpdate.getText());
+       selectedDeliveryMan.getDeliveryUser().setPassword(txtPassUpdate.getText());
          
        populateTable(); 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        int row = tblRestaurant.getSelectedRow();
+        int row = tblDeliveryMan.getSelectedRow();
         if(row<0) {
             JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        Restaurant remove = ((Restaurant)tblRestaurant.getValueAt(row, 0));
-        ecosystem.getRestaurantDirectory().removeEncounter(remove);
-        populateTable();
+        DeliveryMan remove = ((DeliveryMan)tblDeliveryMan.getValueAt(row, 0));
+        ecosystem.getDeliveryManDirectory().removeEncounter(remove);
+        populateTable(); 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-         Employee restEmp = ecosystem.getEmployeeDirectory().createEmployee(txtManaName.getText());
-       UserAccount restuser = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(), txtPassword.getText(), restEmp, new AdminRole());
-       Restaurant restaurant = ecosystem.getRestaurantDirectory().createRestaurant();
-       restaurant.setManager(restuser);
-       restaurant.setRestaurantName(txtRestName.getText());
+         Employee restEmp = ecosystem.getEmployeeDirectory().createEmployee(txtManName.getText());
+       UserAccount restuser = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(), txtPassword.getText(), restEmp, new DeliverManRole());
+       DeliveryMan deliveryMan = ecosystem.getDeliveryManDirectory().createDeliveryMan();
+       deliveryMan.setDeliveryUser(restuser);
          
        populateTable(); 
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
-        int row = tblRestaurant.getSelectedRow();
+        int row = tblDeliveryMan.getSelectedRow();
         if(row<0) {
             JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        selectedRestaurant = ((Restaurant)tblRestaurant.getValueAt(row, 0));
-        txtManaUpdate.setText(selectedRestaurant.getManager().getEmployee().getName());
-        txtUserUpdate.setText(selectedRestaurant.getManager().getUsername());
-        txtPassUpdate.setText(selectedRestaurant.getManager().getPassword());
+        selectedDeliveryMan = ((DeliveryMan)tblDeliveryMan.getValueAt(row, 0));
+        txtManUpdate.setText(selectedDeliveryMan.getDeliveryUser().getEmployee().getName());
+        txtUserUpdate.setText(selectedDeliveryMan.getDeliveryUser().getUsername());
+        txtPassUpdate.setText(selectedDeliveryMan.getDeliveryUser().getPassword());
     }//GEN-LAST:event_btnViewActionPerformed
+
+    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserNameActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -356,7 +362,6 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel grpNewUser;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCreateUser1;
-    private javax.swing.JLabel lblManName;
     private javax.swing.JLabel lblManName1;
     private javax.swing.JLabel lblOrganizationList2;
     private javax.swing.JLabel lblPassword;
@@ -366,24 +371,23 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblUserName;
     private javax.swing.JLabel lblUserName1;
     private javax.swing.JLabel lblUsersList;
-    private javax.swing.JTable tblRestaurant;
-    private javax.swing.JTextField txtManaName;
-    private javax.swing.JTextField txtManaUpdate;
+    private javax.swing.JTable tblDeliveryMan;
+    private javax.swing.JTextField txtManName;
+    private javax.swing.JTextField txtManUpdate;
     private javax.swing.JTextField txtPassUpdate;
     private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtRestName;
     private javax.swing.JTextField txtUserName;
     private javax.swing.JTextField txtUserUpdate;
     // End of variables declaration//GEN-END:variables
 
     private void populateTable() {
-         DefaultTableModel model = (DefaultTableModel) tblRestaurant.getModel();
+         DefaultTableModel model = (DefaultTableModel) tblDeliveryMan.getModel();
         
         model.setRowCount(0);
         
-        for (Restaurant restaurant : ecosystem.getRestaurantDirectory().getRestaurantList()){
+        for (DeliveryMan deliveryMan : ecosystem.getDeliveryManDirectory().getDeliveryManList()){
             Object[] row = new Object[1];
-            row[0] = restaurant;
+            row[0] = deliveryMan;
             model.addRow(row);
         }
     }

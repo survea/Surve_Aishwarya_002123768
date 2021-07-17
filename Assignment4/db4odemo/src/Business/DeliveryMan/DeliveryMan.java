@@ -5,10 +5,25 @@
  */
 package Business.DeliveryMan;
 
+import Business.UserAccount.UserAccount;
+
 /**
  *
  * @author harold
  */
 public class DeliveryMan {
+    private UserAccount deliveryUser;
+
+    public UserAccount getDeliveryUser() {
+        return deliveryUser;
+    }
+
+    public void setDeliveryUser(UserAccount deliveryUser) {
+        this.deliveryUser = deliveryUser;
+    }
     
+    @Override
+    public String toString(){
+        return deliveryUser.getEmployee().getName();
+    }
 }

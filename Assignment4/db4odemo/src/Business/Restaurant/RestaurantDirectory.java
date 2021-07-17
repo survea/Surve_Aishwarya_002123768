@@ -31,4 +31,8 @@ public class RestaurantDirectory {
         restaurantList.add(restaurant);
         return restaurant;
     }
+    
+    public void removeEncounter(Restaurant encounter) {
+        restaurantList.remove(encounter);
+    }
 }

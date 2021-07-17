@@ -152,7 +152,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustActionPerformed
-            
+           CustomerManagementJPanel customerManagement = new CustomerManagementJPanel(userProcessContainer, account, ecosystem);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add(customerManagement);
+        layout.next(userProcessContainer);   
     }//GEN-LAST:event_btnCustActionPerformed
 
     private void btnRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestActionPerformed
@@ -163,7 +166,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRestActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-       
+         DeliveryManManagementJPanel deliveryManManagement = new DeliveryManManagementJPanel(userProcessContainer, account, ecosystem);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add(deliveryManManagement);
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void jTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTreeValueChanged
