@@ -4,6 +4,7 @@
  */
 package userinterface;
 
+import Business.ConfigureASystem;
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
 
@@ -28,6 +29,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
         initComponents();
        // system = dB4OUtil.retrieveSystem();
+       system = ConfigureASystem.configure();
         this.setSize(1680, 1050);
     }
 
@@ -123,7 +125,27 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
         // Get user name
-       
+       String userName = userNameJTextField.getText();
+        // Get Password
+        char[] passwordCharArray = passwordField.getPassword();
+        String password = String.valueOf(passwordCharArray);
+        boolean flag = false;
+
+        UserAccount userAccount = null;
+            userAccount = system.getUserAccountDirectory().authenticateUser(userName, password);
+            if (userAccount != null){
+                
+                CardLayout layout = (CardLayout) container.getLayout();
+                container.add("workArea", userAccount.getRole().createWorkArea(container, userAccount, system));
+                layout.next(container);
+                
+                flag = true;
+            }
+
+        if (flag == false) {
+            JOptionPane.showMessageDialog(null, "Invalid User Name/ Password.");
+            return;
+        }
     }//GEN-LAST:event_loginJButtonActionPerformed
 
     private void logoutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutJButtonActionPerformed
