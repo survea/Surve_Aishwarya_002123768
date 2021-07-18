@@ -7,6 +7,7 @@ package Business;
 import Business.Employee.EmployeeDirectory;
 import Business.Role.Role;
 import Business.UserAccount.UserAccountDirectory;
+import Business.WorkQueue.OrderQueue;
 import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public abstract class Organization {
 
     private String name;
-    private WorkQueue workQueue;
+    private OrderQueue workQueue;
     private EmployeeDirectory employeeDirectory;
     private UserAccountDirectory userAccountDirectory;
     private int organizationID;
@@ -40,7 +41,7 @@ public abstract class Organization {
 
     public Organization(String name) {
         this.name = name;
-        workQueue = new WorkQueue();
+        workQueue = new OrderQueue();
         employeeDirectory = new EmployeeDirectory();
         userAccountDirectory = new UserAccountDirectory();
         organizationID = counter;
@@ -67,7 +68,7 @@ public abstract class Organization {
         return name;
     }
 
-    public WorkQueue getWorkQueue() {
+    public OrderQueue getWorkQueue() {
         return workQueue;
     }
 
@@ -75,7 +76,7 @@ public abstract class Organization {
         this.name = name;
     }
 
-    public void setWorkQueue(WorkQueue workQueue) {
+    public void setWorkQueue(OrderQueue workQueue) {
         this.workQueue = workQueue;
     }
 

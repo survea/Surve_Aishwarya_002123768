@@ -314,10 +314,10 @@ public class CustomerManagementJPanel extends javax.swing.JPanel {
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
          Employee restEmp = ecosystem.getEmployeeDirectory().createEmployee(txtcustName.getText());
-       UserAccount restuser = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(), txtPassword.getText(), restEmp, new CustomerRole());
+       UserAccount<Customer> restuser = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(), txtPassword.getText(), restEmp, new CustomerRole());
        Customer customer = ecosystem.getCustomerDirectory().createCustomer();
        customer.setCustomerUser(restuser);
-         
+       restuser.setWorkAreaObj(customer);
        populateTable(); 
     }//GEN-LAST:event_btnCreateActionPerformed
 

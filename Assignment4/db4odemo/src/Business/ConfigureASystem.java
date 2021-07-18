@@ -56,9 +56,10 @@ public class ConfigureASystem {
          
         //Customer Management
        Employee custEmp = system.getEmployeeDirectory().createEmployee("cust1");
-       UserAccount custuser = system.getUserAccountDirectory().createUserAccount("c", "c", custEmp, new CustomerRole());
+       UserAccount<Customer> custuser = system.getUserAccountDirectory().createUserAccount("c", "c", custEmp, new CustomerRole());
        Customer customer = system.getCustomerDirectory().createCustomer();
        customer.setCustomerUser(custuser);
+       custuser.setWorkAreaObj(customer);
        
        //Delivery Man Management
        Employee delEmp = system.getEmployeeDirectory().createEmployee("del");
