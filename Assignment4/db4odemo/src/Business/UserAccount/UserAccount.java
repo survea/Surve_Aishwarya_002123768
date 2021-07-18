@@ -12,18 +12,26 @@ import Business.WorkQueue.WorkQueue;
  *
  * @author raunak
  */
-public class UserAccount {
+public class UserAccount<T> {
     
     private String username;
     private String password;
     private Employee employee;
     private Role role;
     private WorkQueue workQueue;
+    private T t;
 
     public UserAccount() {
         workQueue = new WorkQueue();
     }
-    
+
+    public T getWorkAreaObj() {
+        return t;
+    }
+
+    public void setWorkAreaObj(T workAreaObj) {
+        this.t = workAreaObj;
+    }
     
     
     public String getUsername() {

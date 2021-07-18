@@ -6,6 +6,8 @@
 package Business.Restaurant;
 
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,6 +16,7 @@ import Business.UserAccount.UserAccount;
 public class Restaurant {
     private String restaurantName;
     private UserAccount Manager;
+    private List<String> menu = new ArrayList<>();
 
     public Restaurant(String restaurantName, UserAccount Manager) {
         this.restaurantName = restaurantName;
@@ -23,7 +26,13 @@ public class Restaurant {
     public Restaurant() {
     }
 
-  
+    public List<String> getMenu() {
+        return menu;
+    }
+
+    public void setMenu(List<String> menu) {
+        this.menu = menu;
+    }
 
     public String getRestaurantName() {
         return restaurantName;
@@ -39,6 +48,14 @@ public class Restaurant {
 
     public void setManager(UserAccount Manager) {
         this.Manager = Manager;
+    }
+    
+    public void addMenu(String item){
+        menu.add(item);
+    }
+    
+    public void deleteMenu(String item){
+        menu.remove(item);
     }
     
     @Override

@@ -323,9 +323,10 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-         Employee restEmp = ecosystem.getEmployeeDirectory().createEmployee(txtManaName.getText());
-       UserAccount restuser = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(), txtPassword.getText(), restEmp, new AdminRole());
-       Restaurant restaurant = ecosystem.getRestaurantDirectory().createRestaurant();
+        Restaurant restaurant = ecosystem.getRestaurantDirectory().createRestaurant(); 
+        Employee restEmp = ecosystem.getEmployeeDirectory().createEmployee(txtManaName.getText());
+       UserAccount<Restaurant>  restuser= ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(), txtPassword.getText(), restEmp, new AdminRole());
+       restuser.setWorkAreaObj(restaurant);
        restaurant.setManager(restuser);
        restaurant.setRestaurantName(txtRestName.getText());
          

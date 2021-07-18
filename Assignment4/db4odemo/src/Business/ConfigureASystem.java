@@ -13,6 +13,9 @@ import Business.Role.DeliverManRole;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
 import business.Organization.SystemAdminOrganization;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -43,10 +46,13 @@ public class ConfigureASystem {
         
         //Restaurant Management
        Employee restEmp = system.getEmployeeDirectory().createEmployee("manager");
-       UserAccount restuser = system.getUserAccountDirectory().createUserAccount("m", "m", restEmp, new AdminRole());
+       UserAccount<Restaurant>  restuser = system.getUserAccountDirectory().createUserAccount("m", "m", restEmp, new AdminRole());
        Restaurant restaurant = system.getRestaurantDirectory().createRestaurant();
        restaurant.setManager(restuser);
+       restuser.setWorkAreaObj(restaurant);
        restaurant.setRestaurantName("Indian Taste");
+       List<String> menu = new ArrayList<>( Arrays.asList("Pasta", "Chicken", "Curry"));
+       restaurant.setMenu(menu);
          
         //Customer Management
        Employee custEmp = system.getEmployeeDirectory().createEmployee("cust1");
