@@ -76,8 +76,10 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
         lblTitle = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(254, 254, 254));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblDelivery.setBackground(new java.awt.Color(254, 254, 254));
         tblDelivery.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

@@ -6,6 +6,7 @@ package userinterface.CustomerRole;
 
 import Business.Customer.Customer;
 import Business.EcoSystem;
+import Business.Restaurant.CommentManage;
 import Business.Restaurant.Restaurant;
 
 import Business.UserAccount.UserAccount;
@@ -90,9 +91,9 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         btnOrder = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblRestaurant = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         txtComment = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
+        lblUsersList = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(254, 254, 254));
 
@@ -177,12 +178,18 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         tblRestaurant.setGridColor(new java.awt.Color(254, 254, 254));
         jScrollPane3.setViewportView(tblRestaurant);
 
-        jButton1.setText("Comment");
-
         txtComment.setBackground(new java.awt.Color(254, 252, 250));
         txtComment.setText("jTextField1");
 
         btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
+
+        lblUsersList.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblUsersList.setText("Review Comment:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -191,21 +198,23 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBack)
-                                .addGap(171, 171, 171)
-                                .addComponent(lblTitle))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBack)
+                        .addGap(171, 171, 171)
+                        .addComponent(lblTitle))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblUsersList))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -229,9 +238,9 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(22, 22, 22)
+                        .addGap(38, 38, 38)
+                        .addComponent(lblUsersList)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSubmit))
@@ -290,16 +299,33 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         populateCustomerTable();
     }//GEN-LAST:event_btnOrderActionPerformed
 
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        int row = tblcust.getSelectedRow();
+        if(row<0) {
+            JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Order order = ((Order)tblcust.getValueAt(row, 0));
+        CommentManage c = new CommentManage();
+        c.setComment(txtComment.getText());
+        c.setDish(order.getDish());
+        c.setCustomer(order.getCustomer());
+        order.getRestaurant().getComment().add(c);
+        JOptionPane.showMessageDialog(null, "Review comment submitted!", "Success", JOptionPane.WARNING_MESSAGE);
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnOrder;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnView;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblUsersList;
     private javax.swing.JTable tblMenu;
     private javax.swing.JTable tblRestaurant;
     private javax.swing.JTable tblcust;

@@ -16,16 +16,8 @@ import java.util.List;
 public class Restaurant {
     private String restaurantName;
     private UserAccount Manager;
-    private String comment;
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
     private List<String> menu = new ArrayList<>();
+    private List<CommentManage> comment = new ArrayList<>();
 
     public Restaurant(String restaurantName, UserAccount Manager) {
         this.restaurantName = restaurantName;
@@ -33,6 +25,14 @@ public class Restaurant {
     }
 
     public Restaurant() {
+    }
+
+    public List<CommentManage> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<CommentManage> comment) {
+        this.comment = comment;
     }
 
     public List<String> getMenu() {
