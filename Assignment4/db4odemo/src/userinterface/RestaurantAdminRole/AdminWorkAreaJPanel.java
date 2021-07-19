@@ -42,7 +42,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         userJButton = new javax.swing.JButton();
         manageMenuJButton = new javax.swing.JButton();
-        manageOrganizationJButton = new javax.swing.JButton();
+        manageOrderButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
 
@@ -68,13 +68,13 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         });
         add(manageMenuJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 170, -1));
 
-        manageOrganizationJButton.setText("Manage Orders");
-        manageOrganizationJButton.addActionListener(new java.awt.event.ActionListener() {
+        manageOrderButton.setText("Manage Orders");
+        manageOrderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageOrganizationJButtonActionPerformed(evt);
+                manageOrderButtonActionPerformed(evt);
             }
         });
-        add(manageOrganizationJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 170, -1));
+        add(manageOrderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 170, -1));
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Restaurant :");
@@ -96,16 +96,19 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageMenuJButtonActionPerformed
 
-    private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
-
-    }//GEN-LAST:event_manageOrganizationJButtonActionPerformed
+    private void manageOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrderButtonActionPerformed
+        OrderManagementJPanel orderManagementJPanel = new OrderManagementJPanel(userProcessContainer, account, business);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add(orderManagementJPanel);
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_manageOrderButtonActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton manageMenuJButton;
-    private javax.swing.JButton manageOrganizationJButton;
+    private javax.swing.JButton manageOrderButton;
     private javax.swing.JButton userJButton;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
