@@ -93,11 +93,11 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Restaurant Name"
+                "Restaurant Name", "Manager"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -300,12 +300,20 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-      
+      if(txtManaUpdate.getText().isEmpty()|txtUserUpdate.getText().isEmpty()|txtPassUpdate.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null, "Please fill all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+         } else {
+           boolean username = ecosystem.getUserAccountDirectory().checkIfUsernameIsUnique(txtUserName.getText());
+                if(!username){
+                    JOptionPane.showMessageDialog(null, "Username is taken", "Warning", JOptionPane.WARNING_MESSAGE);
+                     return;
+                }
        selectedRestaurant.getManager().getEmployee().setName(txtManaUpdate.getText());
        selectedRestaurant.getManager().setUsername(txtUserUpdate.getText());
        selectedRestaurant.getManager().setPassword(txtPassUpdate.getText());
-         
        populateTable(); 
+      }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -323,14 +331,23 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+        if(txtManaName.getText().isEmpty()|txtUserName.getText().isEmpty()|txtPassword.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null, "Please fill all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+         } else {
+           boolean username = ecosystem.getUserAccountDirectory().checkIfUsernameIsUnique(txtUserName.getText());
+                if(!username){
+                    JOptionPane.showMessageDialog(null, "Username is taken", "Warning", JOptionPane.WARNING_MESSAGE);
+                     return;
+                }
         Restaurant restaurant = ecosystem.getRestaurantDirectory().createRestaurant(); 
         Employee restEmp = ecosystem.getEmployeeDirectory().createEmployee(txtManaName.getText());
        UserAccount<Restaurant>  restuser= ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(), txtPassword.getText(), restEmp, new AdminRole());
        restuser.setWorkAreaObj(restaurant);
        restaurant.setManager(restuser);
        restaurant.setRestaurantName(txtRestName.getText());
-         
        populateTable(); 
+        }
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
@@ -383,8 +400,9 @@ public class RestaurantManagementJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         
         for (Restaurant restaurant : ecosystem.getRestaurantDirectory().getRestaurantList()){
-            Object[] row = new Object[1];
+            Object[] row = new Object[2];
             row[0] = restaurant;
+            row[1] = restaurant.getManager();
             model.addRow(row);
         }
     }

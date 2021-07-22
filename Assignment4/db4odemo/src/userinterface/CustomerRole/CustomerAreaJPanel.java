@@ -58,7 +58,6 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblcust.getModel();
         
         model.setRowCount(0);
-        
         for (Order order : system.getWorkQueue().getOrderList()){
             Object[] row = new Object[3];
             Customer cust = order.getCustomer();
@@ -112,17 +111,9 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Dish", "Restaurant Name", "Status"
+                "Dish", "Restaurant", "Status"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tblcust.setGridColor(new java.awt.Color(254, 254, 254));
         jScrollPane1.setViewportView(tblcust);
 
@@ -179,7 +170,6 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         jScrollPane3.setViewportView(tblRestaurant);
 
         txtComment.setBackground(new java.awt.Color(254, 252, 250));
-        txtComment.setText("jTextField1");
 
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +179,7 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         });
 
         lblUsersList.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblUsersList.setText("Review Comment:");
+        lblUsersList.setText("Comment on order(please select the order):");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -275,7 +265,10 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
         
         model.setRowCount(0);
-        
+        if(selectedRestaurant.getMenu().size() == 0){
+            JOptionPane.showMessageDialog(null, "Restaurant has no Item on menu", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         for (String menu : selectedRestaurant.getMenu()){
             String[] row1 = new String[1];
             row1[0] = menu;

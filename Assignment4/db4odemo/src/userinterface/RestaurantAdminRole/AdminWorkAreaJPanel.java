@@ -28,7 +28,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         this.business = business;
         r = (Restaurant) account.getWorkAreaObj();
         System.out.println(r.getRestaurantName());
-//        valueLabel.setText(r);
+        valueLabel.setText(r.getRestaurantName());
     }
     
     /** This method is called from within the constructor to

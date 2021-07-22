@@ -52,7 +52,6 @@ public class MainJFrame extends javax.swing.JFrame {
         loginJLabel = new javax.swing.JLabel();
         logoutJButton = new javax.swing.JButton();
         container = new javax.swing.JPanel();
-        lblTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,11 +117,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
         container.setBackground(new java.awt.Color(254, 254, 254));
         container.setLayout(new java.awt.CardLayout());
-
-        lblTitle.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        lblTitle.setText("                               Restaurant Management System");
-        container.add(lblTitle, "card2");
-
         jSplitPane1.setRightComponent(container);
 
         getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
@@ -143,6 +137,8 @@ public class MainJFrame extends javax.swing.JFrame {
             if (userAccount != null){
                 logoutJButton.setEnabled(true);
                 loginJButton.setEnabled(false);
+                userNameJTextField.setEnabled(false);
+                passwordField.setEnabled(false);
                 CardLayout layout = (CardLayout) container.getLayout();
                 container.add("workArea", userAccount.getRole().createWorkArea(container, userAccount, system));
                 layout.next(container);
@@ -213,7 +209,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JLabel lblTitle;
     private javax.swing.JButton loginJButton;
     private javax.swing.JLabel loginJLabel;
     private javax.swing.JButton logoutJButton;

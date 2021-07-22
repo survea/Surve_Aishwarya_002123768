@@ -5,12 +5,19 @@
  */
 package userinterface.SystemAdminWorkArea;
 
+import Business.Customer.Customer;
+import Business.Customer.CustomerDirectory;
+import Business.DeliveryMan.DeliveryMan;
+import Business.DeliveryMan.DeliveryManDirectory;
 import Business.EcoSystem;
 
 import Business.Organization;
+import Business.Restaurant.Restaurant;
+import Business.Restaurant.RestaurantDirectory;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -32,14 +39,62 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
         this.account = account;
-//        populateTree();
+       populateTree();
     }
     
-//    public void populateTree(){
-//        DefaultTreeModel model=(DefaultTreeModel)jTree.getModel();
-//       // Add the code for draw your system structure shown by JTree
-//        model.reload();
-//    }
+    public void populateTree(){
+          DefaultTreeModel model=(DefaultTreeModel)jTree.getModel();
+        CustomerDirectory customer=ecosystem.getCustomerDirectory();
+         DeliveryManDirectory deliveryMan=ecosystem.getDeliveryManDirectory();
+        RestaurantDirectory restaurant=ecosystem.getRestaurantDirectory();
+        
+        List<Customer> customerList;
+        List<DeliveryMan> deliveryManList;
+        List<Restaurant> restaurantList;
+        
+        DefaultMutableTreeNode sysadmin=new DefaultMutableTreeNode("System Administrator");
+        DefaultMutableTreeNode root=(DefaultMutableTreeNode)model.getRoot();
+        root.removeAllChildren();
+        root.insert(sysadmin, 0);
+        
+        DefaultMutableTreeNode customerNode;
+        DefaultMutableTreeNode deliveryNode;
+        DefaultMutableTreeNode restaurantNode;
+        
+        customerList= customer.getCustomerList();
+            deliveryManList = deliveryMan.getDeliveryManList();
+            restaurantList = restaurant.getRestaurantList();
+        
+        for(int i=0;i<3;i++){
+            if(i==0){
+                 customerNode=new DefaultMutableTreeNode("Customer");
+            sysadmin.insert(customerNode, i);
+               for(int j=0; j<customerList.size();j++){
+                    Customer cus =customerList.get(j);
+                    DefaultMutableTreeNode customerNode1 =new DefaultMutableTreeNode(cus.getCustomerUser());
+                    customerNode.insert(customerNode1, j);
+                 }
+            } else if(i ==1){
+                 restaurantNode=new DefaultMutableTreeNode("Restaurant");
+                sysadmin.insert(restaurantNode, i);
+                for(int j=0; j< restaurantList.size();j++){
+                   Restaurant rest =restaurantList.get(j);
+                   DefaultMutableTreeNode restaurantNode1=new DefaultMutableTreeNode(rest.getRestaurantName());
+                    restaurantNode.insert(restaurantNode1, j);
+                }
+            
+            } else {
+                deliveryNode=new DefaultMutableTreeNode("Delivery Man");
+                sysadmin.insert(deliveryNode, i);
+                for(int j=0; j< deliveryManList.size();j++){
+                    DeliveryMan del=deliveryManList.get(j);
+                    DefaultMutableTreeNode deliveryNode1 =new DefaultMutableTreeNode(del.getDeliveryUser());
+                    deliveryNode.insert(deliveryNode1, j);
+                }
+            }
+        }
+        model.reload();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,6 +106,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         jSplitPane = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree = new javax.swing.JTree();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblSelectedNode = new javax.swing.JLabel();
@@ -60,15 +117,24 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                jTreeValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTree);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 397, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
         );
 
         jSplitPane.setLeftComponent(jPanel1);
@@ -143,6 +209,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add(customerManagement);
         layout.next(userProcessContainer);   
+        populateTree();
     }//GEN-LAST:event_btnCustActionPerformed
 
     private void btnRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestActionPerformed
@@ -150,6 +217,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add(restaurantManagement);
         layout.next(userProcessContainer);
+        populateTree();
     }//GEN-LAST:event_btnRestActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
@@ -157,7 +225,16 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add(deliveryManManagement);
         layout.next(userProcessContainer);
+        populateTree();
     }//GEN-LAST:event_btnDelActionPerformed
+
+    private void jTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTreeValueChanged
+
+        DefaultMutableTreeNode selectedNode= (DefaultMutableTreeNode)jTree.getLastSelectedPathComponent();
+        if(selectedNode!=null){
+            lblSelectedNode.setText(selectedNode.toString());
+        }
+    }//GEN-LAST:event_jTreeValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -167,7 +244,9 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane;
+    private javax.swing.JTree jTree;
     private javax.swing.JLabel lblSelectedNode;
     // End of variables declaration//GEN-END:variables
 }

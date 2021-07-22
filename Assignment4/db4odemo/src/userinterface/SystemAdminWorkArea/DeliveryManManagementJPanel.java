@@ -299,12 +299,20 @@ public class DeliveryManManagementJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-      
+      if(txtManUpdate.getText().isEmpty()|txtUserUpdate.getText().isEmpty()|txtPassUpdate.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null, "Please fill all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+         } else {
+           boolean username = ecosystem.getUserAccountDirectory().checkIfUsernameIsUnique(txtUserUpdate.getText());
+                if(!username){
+                    JOptionPane.showMessageDialog(null, "Username is taken", "Warning", JOptionPane.WARNING_MESSAGE);
+                     return;
+                }
        selectedDeliveryMan.getDeliveryUser().getEmployee().setName(txtManUpdate.getText());
        selectedDeliveryMan.getDeliveryUser().setUsername(txtUserUpdate.getText());
-       selectedDeliveryMan.getDeliveryUser().setPassword(txtPassUpdate.getText());
-         
+       selectedDeliveryMan.getDeliveryUser().setPassword(txtPassUpdate.getText()); 
        populateTable(); 
+      }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -322,12 +330,21 @@ public class DeliveryManManagementJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+        if(txtManName.getText().isEmpty()|txtUserName.getText().isEmpty()|txtPassword.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null, "Please fill all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+         } else {
+           boolean username = ecosystem.getUserAccountDirectory().checkIfUsernameIsUnique(txtUserName.getText());
+                if(!username){
+                    JOptionPane.showMessageDialog(null, "Username is taken", "Warning", JOptionPane.WARNING_MESSAGE);
+                     return;
+                }
          Employee restEmp = ecosystem.getEmployeeDirectory().createEmployee(txtManName.getText());
        UserAccount restuser = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(), txtPassword.getText(), restEmp, new DeliverManRole());
        DeliveryMan deliveryMan = ecosystem.getDeliveryManDirectory().createDeliveryMan();
        deliveryMan.setDeliveryUser(restuser);
-         
        populateTable(); 
+        }
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed

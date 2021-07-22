@@ -290,12 +290,21 @@ public class CustomerManagementJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-      
+       if(txtManaUpdate.getText().isEmpty()|txtUserUpdate.getText().isEmpty()|txtPassUpdate.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null, "Please fill all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+         } else {
+           boolean username = ecosystem.getUserAccountDirectory().checkIfUsernameIsUnique(txtUserUpdate.getText());
+                if(!username){
+                    JOptionPane.showMessageDialog(null, "Username is taken", "Warning", JOptionPane.WARNING_MESSAGE);
+                     return;
+                }
        selectedCustomer.getCustomerUser().getEmployee().setName(txtManaUpdate.getText());
        selectedCustomer.getCustomerUser().setUsername(txtUserUpdate.getText());
        selectedCustomer.getCustomerUser().setPassword(txtPassUpdate.getText());
-         
-       populateTable(); 
+        populateTable();
+       }
+       
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -313,12 +322,23 @@ public class CustomerManagementJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-         Employee restEmp = ecosystem.getEmployeeDirectory().createEmployee(txtcustName.getText());
-       UserAccount<Customer> restuser = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(), txtPassword.getText(), restEmp, new CustomerRole());
-       Customer customer = ecosystem.getCustomerDirectory().createCustomer();
-       customer.setCustomerUser(restuser);
-       restuser.setWorkAreaObj(customer);
-       populateTable(); 
+         if(txtcustName.getText().isEmpty()|txtUserName.getText().isEmpty()|txtPassword.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null, "Please fill all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+         } else {
+                boolean username = ecosystem.getUserAccountDirectory().checkIfUsernameIsUnique(txtUserName.getText());
+                if(!username){
+                    JOptionPane.showMessageDialog(null, "Username is taken", "Warning", JOptionPane.WARNING_MESSAGE);
+                     return;
+                }
+               Employee restEmp = ecosystem.getEmployeeDirectory().createEmployee(txtcustName.getText());
+                UserAccount<Customer> restuser = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(), txtPassword.getText(), restEmp, new CustomerRole());
+                Customer customer = ecosystem.getCustomerDirectory().createCustomer();
+                customer.setCustomerUser(restuser);
+                restuser.setWorkAreaObj(customer);
+                populateTable(); 
+         }
+       
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
